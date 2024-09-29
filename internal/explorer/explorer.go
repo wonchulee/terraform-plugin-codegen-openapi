@@ -4,6 +4,7 @@
 package explorer
 
 import (
+	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 	"github.com/pb33f/libopenapi/datamodel/high/base"
 	high "github.com/pb33f/libopenapi/datamodel/high/v3"
 )
@@ -50,5 +51,6 @@ type AttributeOptions struct {
 }
 
 type Override struct {
-	Description string
+	Description              string
+	ComputedOptionalRequired schema.ComputedOptionalRequired
 }

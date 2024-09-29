@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/hashicorp/terraform-plugin-codegen-openapi/internal/config"
+	"github.com/hashicorp/terraform-plugin-codegen-spec/schema"
 
 	highbase "github.com/pb33f/libopenapi/datamodel/high/base"
 	high "github.com/pb33f/libopenapi/datamodel/high/v3"
@@ -211,8 +212,23 @@ func extractSchemaOptions(cfgSchemaOpts config.SchemaOptions) SchemaOptions {
 func extractOverrides(cfgOverrides map[string]config.Override) map[string]Override {
 	overrides := make(map[string]Override, len(cfgOverrides))
 	for key, cfgOverride := range cfgOverrides {
-		overrides[key] = Override{Description: cfgOverride.Description}
+		overrides[key] = Override{Description: cfgOverride.Description, ComputedOptionalRequired: fromStringToComputedOptioalRequired(cfgOverride.ComputedOptionalRequired)}
 	}
 
 	return overrides
+}
+
+// FIXME: temporal code to demonstrate
+func fromStringToComputedOptioalRequired(str string) schema.ComputedOptionalRequired {
+	switch str {
+	case "computed":
+		return schema.Computed
+	case "computed_optional":
+		return schema.ComputedOptional
+	case "optional":
+		return schema.Optional
+	case "required":
+		return schema.Required
+	}
+	panic("unreachable")
 }

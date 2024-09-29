@@ -33,6 +33,7 @@ func (a *ResourceInt64Attribute) Merge(mergeAttribute ResourceAttribute) (Resour
 
 func (a *ResourceInt64Attribute) ApplyOverride(override explorer.Override) (ResourceAttribute, error) {
 	a.Description = &override.Description
+	a.ComputedOptionalRequired = override.ComputedOptionalRequired
 
 	return a, nil
 }
@@ -66,6 +67,7 @@ func (a *DataSourceInt64Attribute) Merge(mergeAttribute DataSourceAttribute) (Da
 
 func (a *DataSourceInt64Attribute) ApplyOverride(override explorer.Override) (DataSourceAttribute, error) {
 	a.Description = &override.Description
+	a.ComputedOptionalRequired = override.ComputedOptionalRequired
 
 	return a, nil
 }
